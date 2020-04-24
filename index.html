@@ -3,79 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/bd321affd4.js" crossorigin="anonymous"></script>
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet" type="text/css"> -->
     <title>Library</title>
     <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body>
-    <div class="ui container">
-        <div class="row">
-            <h1 class="ui header">My Library Tracker</h1>            
-        </div>
-        <div class="row">
-            <div class="ui cards">
-                <div class="card">                    
-                  <div class="content">
-                     <div class="image">
-                        <img id="test" class="ui image tiny right floated" src="media/book-illustration.png">
-                    </div> 
-                    <div class="header">East of Eden</div>          
-                    <div class="meta">
-                        <span class="pages">515</span> pages
-                    </div>
-                    <div class="author">
-                      John Steinbeck
-                    </div>
-                    <div class="read-status">
-                      <em>Not Read</em>
-                    </div>
-                  </div>
-                  <div class="extra content">
-                        <div class="ui two buttons">
-                            <div class="ui basic green button">
-                                <i class="check icon"></i>
-                                Mark Read
-                            </div>
-                      <div class="ui basic red button">
-                            <i class="trash icon"></i>
-                            Delete
-                      </div>
-                  </div>
-                  </div>
-                </div>
-                <div class="card">
-                  <div class="content">
-                    <div class="header">Veronika Ossi</div>
-                    <div class="description">
-                      Veronika Ossi is a set designer living in New York who enjoys kittens, music, and partying.
-                    </div>
-                  </div>
-                  <div class="ui bottom attached button">
-                    <i class="add icon"></i>
-                    Add Friend
-                  </div>
-                </div>
-                <div class="card">
-                  <div class="content">
-                    <div class="header">Jenny Hess</div>
-                    <div class="description">
-                      Jenny is a student studying Media Management at the New School
-                    </div>
-                  </div>
-                  <div class="ui bottom attached button">
-                    <i class="add icon"></i>
-                    Add Friend
-                  </div>
-                </div>
-              </div>
+    <div class="container">
+        <h1>My Library <span id="addBook">[+]</span></h1>  
+        <div class="bookshelf">
         </div>
     </div>
-
-    <script
+    
+    <div class="modal">
+        <h3>Add Book</h3>
+        <form id="bookInput">
+            <label for="title">Title: </label>
+            <input type="text" id="title" value="The Adventures of Sherlock Holmes">
+            <label for="author">Author: </label>            
+            <input type="text" id="author" value="Arthur Conan Doyle">
+            <label for="pages">Number of pages: </label>
+            <input type="number" id="pages" value=780>
+            <label for="readState">I've read this </label>
+            <input type="checkbox" id="readState" value=false>
+        </form>
+        <button>Submit</button>
+    </div>
+    <!-- <script>
   src="https://code.jquery.com/jquery-3.5.0.min.js"
   integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
-  crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" type="text/javascript"></script>
+  crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" type="text/javascript"></script> -->
     <script src="main.js" type="text/javascript"></script>
 </body>
 </html>

@@ -1,7 +1,41 @@
-.row {
-    margin-top: 10px;
+body {
+    font-family: 'Manrope', sans-serif;
 }
 
-.author {
-    margin-top: 20px;
+.container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+h1 {
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    text-align: center;
+}
+
+h2 {
+    font-size: 1.25em;
+}
+
+.bookshelf {
+    width: 100%;
+    max-width: 1000px;
+    display: grid;
+    row-gap: 25px;
+    column-gap: 25px;
+    grid-template-columns: repeat(auto-fill, 300px);
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.card {
+    width: 300px;
+    height: 100px;
+    border: 1px black solid;
+    /* margin: 0 auto; */
+}
+
+.card > * {
+    margin: 0;
 }
