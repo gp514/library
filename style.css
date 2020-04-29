@@ -1,20 +1,37 @@
+/* Color Theme Swatches in Hex */
+/* .PASTEL-POETRY-///-Photobook-1-hex { color: #0F2624; black green}
+.PASTEL-POETRY-///-Photobook-2-hex { color: #0D7339; dark green}
+.PASTEL-POETRY-///-Photobook-3-hex { color: #A4A67C; olive green}
+.PASTEL-POETRY-///-Photobook-4-hex { color: #D94625; red}
+.PASTEL-POETRY-///-Photobook-5-hex { color: #F2766B; salmon} */
+
 body {
     font-family: 'Manrope', sans-serif;
+    margin: 0;
+    color: #0F2624;
 }
 
 .container {
     width: 90%;
-    margin: 0 auto;
+    margin: 20px auto;
 }
 
 h1 {
     font-weight: 300;
     letter-spacing: 0.05em;
-    text-align: center;
+    background-color: #0D7339;
+    color: white;
+    margin: 0;
+    padding: 10px 20px;
+    border-bottom: 1px #0F2624 solid;
 }
 
 h2 {
     font-size: 1.25em;
+    height: 81px;
+    line-height: 27px;
+    border-bottom: 1px #F2766B solid;
+    width: 75%;
 }
 
 .bookshelf {
@@ -23,7 +40,7 @@ h2 {
     display: grid;
     row-gap: 25px;
     column-gap: 25px;
-    grid-template-columns: repeat(auto-fill, 300px);
+    grid-template-columns: repeat(auto-fill, 312px);
     flex-wrap: wrap;
     justify-content: center;
     margin: 0 auto;
@@ -31,11 +48,203 @@ h2 {
 
 .card {
     width: 300px;
-    height: 100px;
-    border: 1px black solid;
-    /* margin: 0 auto; */
+    height: 125px;
+    padding: 4px;
+    border: 2px #0D7339 solid;
+    border-radius: 5px;
+    box-shadow: 2px 2px 4px 0px #00000020
 }
 
 .card > * {
     margin: 0;
+}
+
+.btn-container {
+    height: 54px;
+    width: 68px;
+    float: right;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 5px;
+}
+
+.trash {
+    width: 55px;
+    height: 20px;
+    color: white;
+    background-color: #D94625;
+    border: 1px #D94625 solid;
+    text-align: center;
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: 0.03em;
+    border-radius: 5px;
+}
+
+.trash:hover {
+    cursor: pointer;
+}
+
+.readButton {
+    width: 55px;
+    height: 20px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: 0.03em;
+    border-radius: 5px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.read {
+    color: white;
+    background-color: #A4A67C;
+    border: 1px #A4A67C solid;
+}
+
+.read:hover {
+    cursor: pointer;
+}
+
+.unread {
+    color: #A4A67C;
+    background-color: white;
+    border: 1px #A4A67C solid;
+}
+
+.unread:hover {
+    cursor: pointer;
+}
+
+.pages {
+    font-weight: 300;
+    font-size: 12px;
+}
+
+#addBook {
+    font-weight: 700;
+}
+
+.modal-background {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    transition-duration: 0.3s;
+    transition: ease-in;
+}
+
+.modal {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    height: 275px;
+    background-color: white;
+}
+
+.modal.active {
+    z-index: 1;
+    bottom: 0;
+}
+
+.modal h3 {
+    background-color: #0D7339;
+    border-top: 5px #0F2624 solid;
+    border-bottom: 1px #0F2624 solid;
+    color: white;
+    line-height: 50px;
+    text-align: center;
+    margin-top: 0;
+}
+
+.form-container {
+    width: 500px;
+    margin: 25px auto;
+}
+
+form div {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+}
+
+form div label {
+    line-height: 30px;
+}
+
+input {
+    font-family: 'Manrope', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    border-radius: 3px;
+    border: 1px solid #0D7339;
+    padding: 0 5px;    
+}
+
+input[type="text"]:focus {
+    box-shadow: 0 0 3px #0D7339;
+    border: 1px solid #0D7339; 
+    outline: none;
+}
+
+input[type="number"]:focus {
+    box-shadow: 0 0 3px #0D7339;
+    border: 1px solid #0D7339; 
+    outline: none;
+}
+
+input[type="text"] {
+    width: 400px;
+}
+
+input[type="number"] {
+    width: 50px;
+}
+
+.form-btn-container {
+    margin: 10px auto;
+    text-align: center;
+}
+
+button {
+    height: 40px;
+    width: 100px;
+    font-size: 14px;
+    border-radius: 5px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+#submit-form {
+    color: white;
+    background-color: #0D7339;
+    border: 1px #0D7339 solid;
+}
+
+#cancel-form {
+    color: #D94625;
+    background-color: white;
+    border: 1px #D94625 solid;
+}
+
+#readState {
+    margin: auto 5px;
+}
+
+.form-bottom-container {
+    width: 125px;
+}
+
+.input-container:nth-of-type(3) {
+    margin: 5px 100px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #0D7339;
 }

@@ -1,5 +1,5 @@
 const bookshelf = document.querySelector(".bookshelf"); 
-const submitForm = document.querySelector("button");
+const submitForm = document.querySelector("#submit-form");
 
 let myLibrary = [];
 
@@ -55,41 +55,53 @@ function createCard(index) {
 
     const pages = document.createElement("p");
     pages.classList.add("pages");
-    pages.textContent = myLibrary[index].pages;
+    pages.textContent = myLibrary[index].pages + " pages";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("btn-container");
 
     const readState = document.createElement("p");
-    readState.classList.add("readState");
-    readState.textContent = myLibrary[index].read;
+    readState.classList.add("readButton");
+    if(myLibrary[index].read) {
+        readState.textContent = "read";
+        readState.classList.add("read")  
+    } else {
+        readState.textContent = "unread";
+        readState.classList.add("unread") 
+    }
     readState.addEventListener("click", toggleRead);
 
-    const trash = document.createElement("i");
-    trash.classList.add("fas", "fa-trash");
-    trash.style.float = "right";
+    const trash = document.createElement("div");
+    trash.classList.add("trash");
+    trash.textContent = "remove";
     trash.addEventListener("click", removeBook);
 
-    newCard.append(title, author, pages, readState, trash);
+    btnContainer.append(trash, readState);
+
+    newCard.append(btnContainer, title, author, pages);
     bookshelf.appendChild(newCard);
 }
 
 submitForm.addEventListener("click", addBook);
 
 function addBook() {
+    // only accept input if all fields filled out
     if(!validateInput(document.forms["bookInput"]["title"].value, document.forms["bookInput"]["author"].value, document.forms["bookInput"]["pages"].value)) {
         return false;
     }
-    addBookToLibrary(document.forms["bookInput"]["title"].value, document.forms["bookInput"]["author"].value, document.forms["bookInput"]["pages"].value, document.forms["bookInput"]["readState"].value);  
+    addBookToLibrary(document.forms["bookInput"]["title"].value, document.forms["bookInput"]["author"].value, document.forms["bookInput"]["pages"].value, document.querySelector("#readState").checked);  
     render();
     clearForm();
 }
 
 // remove book from array based on book that was clicked and re-render cards
 function removeBook(event) {
-    myLibrary.splice(event.path[1].getAttribute("data-cardNum"), 1);
+    myLibrary.splice(event.path[2].getAttribute("data-cardNum"), 1);
     render();
 }
 
 function toggleRead(event) {
-    myLibrary[event.path[1].getAttribute("data-cardNum")].toggleRead();
+    myLibrary[event.path[2].getAttribute("data-cardNum")].toggleRead();
     render();
 }
 

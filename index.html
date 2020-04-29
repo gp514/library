@@ -10,26 +10,70 @@
     <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body>
+    <h1>My Library <span id="addBook">[+]</span></h1> 
     <div class="container">
-        <h1>My Library <span id="addBook">[+]</span></h1>  
+ 
         <div class="bookshelf">
         </div>
     </div>
     
-    <div class="modal">
-        <h3>Add Book</h3>
-        <form id="bookInput">
-            <label for="title">Title: </label>
-            <input type="text" id="title" value="The Adventures of Sherlock Holmes">
-            <label for="author">Author: </label>            
-            <input type="text" id="author" value="Arthur Conan Doyle">
-            <label for="pages">Number of pages: </label>
-            <input type="number" id="pages" value=780>
-            <label for="readState">I've read this </label>
-            <input type="checkbox" id="readState" value=false>
-        </form>
-        <button>Submit</button>
+    <div class="modal-background">
+        <div class="modal">
+            <h3>Add Book</h3>
+            <div class="form-container">
+                <form id="bookInput">
+                    <div class="input-container">
+                        <label for="title">Title: </label>
+                        <input type="text" id="title" value="The Adventures of Sherlock Holmes"> 
+                    </div>
+                    <div class="input-container">
+                        <label for="author">Author: </label>            
+                        <input type="text" id="author" value="Arthur Conan Doyle">                     
+                    </div>
+                    <div class="input-container">
+                        <div class="form-bottom-container">
+                            <label for="pages">Pages: </label>
+                            <input type="number" id="pages" value=780>                        
+                        </div>
+                        <div class="form-bottom-container">
+                            <label for="readState">I've read this </label>
+                            <input type="checkbox" id="readState" value="true">                   
+                        </div>
+                    </div>
+                </form>
+                <div class="form-btn-container">
+                    <button id="cancel-form" type="button">cancel</button>    
+                    <button id="submit-form" type="button">submit</button>                    
+                </div>
+
+            </div>
+
+        </div>       
     </div>
+    
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyCGuJsOJW-O4bOVfQohekW9kpVPoalimdg",
+    authDomain: "library-81a58.firebaseapp.com",
+    databaseURL: "https://library-81a58.firebaseio.com",
+    projectId: "library-81a58",
+    storageBucket: "library-81a58.appspot.com",
+    messagingSenderId: "266435945330",
+    appId: "1:266435945330:web:fd3e5418db5f00169db3eb",
+    measurementId: "G-80P4V57JYT"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
     <!-- <script>
   src="https://code.jquery.com/jquery-3.5.0.min.js"
   integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
