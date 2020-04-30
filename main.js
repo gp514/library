@@ -1,5 +1,23 @@
+var firebaseConfig = {
+    apiKey: "AIzaSyB_xUPNXsxHsvN30bivixIRYdw93zVZQ18",
+    authDomain: "library-c45d5.firebaseapp.com",
+    databaseURL: "https://library-c45d5.firebaseio.com",
+    projectId: "library-c45d5",
+    storageBucket: "library-c45d5.appspot.com",
+    messagingSenderId: "939498758481",
+    appId: "1:939498758481:web:01fa165b442cb8a0747370"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
 const bookshelf = document.querySelector(".bookshelf"); 
 const submitForm = document.querySelector("#submit-form");
+const addBookBtn = document.querySelector("#addBook");
+const modal = document.querySelector(".modal-background");
+const cancelBtn = document.querySelector("#cancel-form");
+
+const dbRefObject = firebase.database().ref().child("myLibrary");
+dbRefObject.on("value", snap => console.log(snap.val()));
 
 let myLibrary = [];
 
@@ -83,6 +101,8 @@ function createCard(index) {
 }
 
 submitForm.addEventListener("click", addBook);
+addBookBtn.addEventListener("click", showModal);
+cancelBtn.addEventListener("click", closeModal);
 
 function addBook() {
     // only accept input if all fields filled out
@@ -118,3 +138,16 @@ function clearForm() {
     document.forms["bookInput"]["pages"].value = null;
     document.forms["bookInput"]["readState"].checked = false;
 }
+
+function showModal() {
+    modal.style.display = "block";
+    window.addEventListener("click", function() {
+        console.log(event.target);
+        if(event.target === modal) {closeModal()}})
+}
+
+function closeModal() {
+    clearForm();
+    modal.style.display = "none";
+}
+

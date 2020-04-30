@@ -126,6 +126,7 @@ h2 {
 
 #addBook {
     font-weight: 700;
+    cursor: pointer;
 }
 
 .modal-background {
@@ -138,21 +139,19 @@ h2 {
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4);
-    transition-duration: 0.3s;
-    transition: ease-in;
+    animation-name: fadeIn;
+    animation-duration: 0.4s;
 }
 
 .modal {
-    width: 100%;
+    width: 750px;
     position: fixed;
     bottom: 0;
+    left: calc(50% - 375px);
     height: 275px;
     background-color: white;
-}
-
-.modal.active {
-    z-index: 1;
-    bottom: 0;
+    animation-name: slideIn;
+    animation-duration: 0.4s;
 }
 
 .modal h3 {
@@ -247,4 +246,14 @@ button {
     margin: 5px 100px;
     padding-bottom: 10px;
     border-bottom: 2px solid #0D7339;
+}
+
+@keyframes slideIn {
+    from {bottom: -300px; opacity: 0}
+    to {bottom: 0; opacity: 1}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0}
+    to {opacity: 1}
 }
