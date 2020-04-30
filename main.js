@@ -16,9 +16,7 @@ const addBookBtn = document.querySelector("#addBook");
 const modal = document.querySelector(".modal-background");
 const cancelBtn = document.querySelector("#cancel-form");
 
-const dbRefObject = firebase.database().ref().child("myLibrary");
-dbRefObject.on("value", snap => console.log(snap.val()));
-
+const dbRef = firebase.database().ref();
 let myLibrary = [];
 
 function Book(title, author, pages, read) {
@@ -26,15 +24,24 @@ function Book(title, author, pages, read) {
     this.author = author;
     this.pages = pages;
     this.read = read;
-    this.info = function() {
-        let readPhrase = "";
-        this.read ? readPhrase = "already read" : readPhrase = "not read yet";
-        return `${this.title} by ${this.author}, ${this.pages} pages, ${readPhrase}`;
-    } 
 }
 
 Book.prototype.toggleRead = function() {
     this.read = !this.read;
+}
+
+function loadLibrary() {
+    dbRef.once("value").then(snap => {
+        const bookList = snap.val();
+        bookList.forEach(book => {
+        myLibrary.push(new Book(book.title, book.author, book.pages, book.read));   
+        });
+        render();
+    })
+}
+
+function updateDB(bookArray) {
+    dbRef.set(bookArray);
 }
 
 function addBookToLibrary(title, author, pages, read) {
@@ -42,13 +49,7 @@ function addBookToLibrary(title, author, pages, read) {
     myLibrary.push(addedBook);
 }
 
-addBookToLibrary("SPQR", "Mary Beard", 498, true);
-addBookToLibrary("East of Eden", "John Steinbeck", 515, true);
-addBookToLibrary("A Calamitous Mirror", "Barbara Tuchman", 603, false);
-addBookToLibrary("Antifragile", "Nassim Taleb", 355, false);
-
-
-render();
+loadLibrary();
 
 function render() {
     bookshelf.innerHTML = "";
@@ -111,6 +112,7 @@ function addBook() {
     }
     addBookToLibrary(document.forms["bookInput"]["title"].value, document.forms["bookInput"]["author"].value, document.forms["bookInput"]["pages"].value, document.querySelector("#readState").checked);  
     render();
+    updateDB(myLibrary);
     clearForm();
 }
 
@@ -118,11 +120,13 @@ function addBook() {
 function removeBook(event) {
     myLibrary.splice(event.path[2].getAttribute("data-cardNum"), 1);
     render();
+    updateDB(myLibrary);
 }
 
 function toggleRead(event) {
     myLibrary[event.path[2].getAttribute("data-cardNum")].toggleRead();
     render();
+    updateDB(myLibrary);
 }
 
 function validateInput(...args) {
@@ -142,7 +146,6 @@ function clearForm() {
 function showModal() {
     modal.style.display = "block";
     window.addEventListener("click", function() {
-        console.log(event.target);
         if(event.target === modal) {closeModal()}})
 }
 
