@@ -1,3 +1,5 @@
+//configure connection to Firebase
+
 var firebaseConfig = {
     apiKey: "AIzaSyB_xUPNXsxHsvN30bivixIRYdw93zVZQ18",
     authDomain: "library-c45d5.firebaseapp.com",
@@ -10,15 +12,24 @@ var firebaseConfig = {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
+// DOM elements
 const bookshelf = document.querySelector(".bookshelf"); 
 const submitForm = document.querySelector("#submit-form");
 const addBookBtn = document.querySelector("#addBook");
 const modal = document.querySelector(".modal-background");
 const cancelBtn = document.querySelector("#cancel-form");
 
+// DB reference
 const dbRef = firebase.database().ref();
+
+// Event listeners
+submitForm.addEventListener("click", addBook);
+addBookBtn.addEventListener("click", showModal);
+cancelBtn.addEventListener("click", closeModal);
+
 let myLibrary = [];
 
+// Book constructor
 function Book(title, author, pages, read) {
     this.title = title;
     this.author = author;
@@ -30,6 +41,9 @@ Book.prototype.toggleRead = function() {
     this.read = !this.read;
 }
 
+loadLibrary();
+
+// load library from Firebase, create book objects and render each client-side
 function loadLibrary() {
     dbRef.once("value").then(snap => {
         const bookList = snap.val();
@@ -40,17 +54,8 @@ function loadLibrary() {
     })
 }
 
-function updateDB(bookArray) {
-    dbRef.set(bookArray);
-}
 
-function addBookToLibrary(title, author, pages, read) {
-    const addedBook = new Book(title, author, pages, read);
-    myLibrary.push(addedBook);
-}
-
-loadLibrary();
-
+// build bookshelf with each Book card
 function render() {
     bookshelf.innerHTML = "";
     for(let i = 0; i < myLibrary.length; i++) {
@@ -58,6 +63,7 @@ function render() {
     }
 }
 
+// create card with DOM elements 
 function createCard(index) {
 
     const newCard = document.createElement("div");
@@ -101,10 +107,18 @@ function createCard(index) {
     bookshelf.appendChild(newCard);
 }
 
-submitForm.addEventListener("click", addBook);
-addBookBtn.addEventListener("click", showModal);
-cancelBtn.addEventListener("click", closeModal);
+// update FB library with client-side changes
+function updateDB(bookArray) {
+    dbRef.set(bookArray);
+}
 
+// create new object and add to library locally
+function addBookToLibrary(title, author, pages, read) {
+    const addedBook = new Book(title, author, pages, read);
+    myLibrary.push(addedBook);
+}
+
+// callback function when new book form is submitted
 function addBook() {
     // only accept input if all fields filled out
     if(!validateInput(document.forms["bookInput"]["title"].value, document.forms["bookInput"]["author"].value, document.forms["bookInput"]["pages"].value)) {
@@ -116,19 +130,7 @@ function addBook() {
     clearForm();
 }
 
-// remove book from array based on book that was clicked and re-render cards
-function removeBook(event) {
-    myLibrary.splice(event.path[2].getAttribute("data-cardNum"), 1);
-    render();
-    updateDB(myLibrary);
-}
-
-function toggleRead(event) {
-    myLibrary[event.path[2].getAttribute("data-cardNum")].toggleRead();
-    render();
-    updateDB(myLibrary);
-}
-
+// check all form inputs are not null
 function validateInput(...args) {
     for(let i = 0; i < args.length; i++) {
         if(!args[i]) return false
@@ -136,6 +138,7 @@ function validateInput(...args) {
     return true;
 }
 
+// reset all form fields
 function clearForm() {
     document.forms["bookInput"]["title"].value = "";
     document.forms["bookInput"]["author"].value = "";
@@ -143,12 +146,28 @@ function clearForm() {
     document.forms["bookInput"]["readState"].checked = false;
 }
 
+// callback to remove book from array based on book that was clicked and re-render cards, update DB
+function removeBook(event) {
+    myLibrary.splice(event.path[2].getAttribute("data-cardNum"), 1);
+    render();
+    updateDB(myLibrary);
+}
+
+// callback to remove book from array based on book that was clicked and re-render cards, update DB
+function toggleRead(event) {
+    myLibrary[event.path[2].getAttribute("data-cardNum")].toggleRead();
+    render();
+    updateDB(myLibrary);
+}
+
+// display modal
 function showModal() {
     modal.style.display = "block";
     window.addEventListener("click", function() {
         if(event.target === modal) {closeModal()}})
 }
 
+// close modal
 function closeModal() {
     clearForm();
     modal.style.display = "none";
